@@ -214,17 +214,17 @@ export const ExecutiveCommandModule: React.FC = () => {
         </Card>
 
         {/* 6-AXIS RADAR DIAGNOSTIC */}
-        <Card className="lg:col-span-7 p-6 space-y-3">
+        <Card variant="glass" className="lg:col-span-7 p-6 space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white font-display">
                 6-Pillar Health Score Decomposition
               </h3>
               <p className="text-xs text-slate-500">
                 Balanced multi-dimensional operational metrics vs institutional benchmark
               </p>
             </div>
-            <Badge variant="info">Real-Time Sync</Badge>
+            <Badge variant="info" dot>Real-Time Sync</Badge>
           </div>
 
           <div className="h-64 w-full">
@@ -242,10 +242,10 @@ export const ExecutiveCommandModule: React.FC = () => {
       </div>
 
       {/* 6 EXECUTIVE HEALTH CARDS */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <Card className="p-3 border-l-4 border-l-indigo-600">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-indigo-600">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Academics</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {academicScore}%
           </span>
           <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
@@ -253,17 +253,17 @@ export const ExecutiveCommandModule: React.FC = () => {
           </span>
         </Card>
 
-        <Card className="p-3 border-l-4 border-l-emerald-600">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-emerald-500">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Attendance</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {attendanceScore}%
           </span>
           <span className="text-[10px] text-slate-400 block mt-1">Daily Average</span>
         </Card>
 
-        <Card className="p-3 border-l-4 border-l-amber-600">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-amber-500">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fiscal Recovery</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {financialScore}%
           </span>
           <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
@@ -271,25 +271,25 @@ export const ExecutiveCommandModule: React.FC = () => {
           </span>
         </Card>
 
-        <Card className="p-3 border-l-4 border-l-sky-600">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-sky-500">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Faculty Ready</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {staffScore}%
           </span>
           <span className="text-[10px] text-slate-400 block mt-1">Active Duty</span>
         </Card>
 
-        <Card className="p-3 border-l-4 border-l-rose-600">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-rose-500">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Transport Safety</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {transportScore}%
           </span>
           <span className="text-[10px] text-slate-400 block mt-1">GPS Telematics</span>
         </Card>
 
-        <Card className="p-3 border-l-4 border-l-purple-600">
+        <Card variant="glass" hoverable className="p-3.5 border-l-4 border-l-purple-500">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Parent Trust</span>
-          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block">
+          <span className="text-xl font-black text-slate-900 dark:text-white mt-0.5 block font-display">
             {parentScore}%
           </span>
           <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5 mt-1">
@@ -301,10 +301,10 @@ export const ExecutiveCommandModule: React.FC = () => {
       {/* STRATEGIC FORECAST & CRITICAL ALERTS */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Growth Forecast Chart */}
-        <Card className="lg:col-span-8 p-6 space-y-4">
+        <Card variant="glass" className="lg:col-span-8 p-6 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">
+              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white font-display">
                 5-Month Operational Velocity & Fiscal Trajectory
               </h3>
               <p className="text-xs text-slate-500">
@@ -324,11 +324,20 @@ export const ExecutiveCommandModule: React.FC = () => {
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={termGrowthData}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                <XAxis dataKey="month" tick={{ fontSize: 11 }} />
-                <YAxis domain={[70, 100]} tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Bar dataKey="collection" fill="#4f46e5" radius={[6, 6, 0, 0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.15)" />
+                <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="#94a3b8" tickLine={false} />
+                <YAxis domain={[70, 100]} tick={{ fontSize: 11 }} stroke="#94a3b8" tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(15, 23, 42, 0.92)',
+                    borderRadius: '16px',
+                    borderColor: 'rgba(99, 102, 241, 0.3)',
+                    color: '#fff',
+                    fontSize: '12px',
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.5)',
+                  }}
+                />
+                <Bar dataKey="collection" fill="#6366f1" radius={[6, 6, 0, 0]} />
                 <Bar dataKey="gpa" fill="#10b981" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -336,7 +345,7 @@ export const ExecutiveCommandModule: React.FC = () => {
         </Card>
 
         {/* Live Executive Alerts Feed */}
-        <Card className="lg:col-span-4 p-6 space-y-4 flex flex-col justify-between">
+        <Card variant="glass" className="lg:col-span-4 p-6 space-y-4 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between border-b pb-3 mb-3">
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
