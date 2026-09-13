@@ -1,10 +1,22 @@
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>SmartSchool OS | Unified School Operating System</title>
     <meta name="description" content="Next-Generation Centralized Operating System for Modern Educational Institutions with Zero-Trust Permission Architecture." />
+    <!-- Initialize Theme: Default to Dark Mode -->
+    <script>
+      (function() {
+        const saved = localStorage.getItem('smartschool_theme');
+        if (saved === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('smartschool_theme', 'dark');
+        }
+      })();
+    </script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
