@@ -18,6 +18,9 @@ import { useEnterprise } from '../../../context/EnterpriseContext';
 import { useSchool } from '../../../context/SchoolContext';
 import { useAuth } from '../../../context/AuthContext';
 import { GeneratedWorksheet } from '../../../types/enterprise';
+import { Card } from '../../common/Card';
+import { Button } from '../../common/Button';
+import { Badge } from '../../common/Badge';
 
 export const AiWorksheetGeneratorModule: React.FC = () => {
   const { state, addWorksheet } = useEnterprise();
@@ -139,59 +142,66 @@ export const AiWorksheetGeneratorModule: React.FC = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-[1600px] mx-auto">
+    <div className="space-y-6 max-w-[1600px] mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm print:hidden">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-violet-50 dark:bg-violet-950/60 rounded-xl text-violet-600 dark:text-violet-400">
-            <Sparkles className="w-6 h-6" />
+      <Card variant="glass" className="p-5 sm:p-6 print:hidden">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-violet-500/25 shrink-0">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-display">
+                  AI Homework & Worksheet Generator
+                </h1>
+                <Badge variant="primary" dot size="sm">
+                  Curriculum Aligned
+                </Badge>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                Instantly create differentiated assessments, question papers, and detailed solution rubrics across CBSE, ICSE & Cambridge.
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              AI Homework & Worksheet Generator
-              <span className="text-xs px-2.5 py-0.5 bg-violet-100 dark:bg-violet-950 text-violet-700 dark:text-violet-300 font-semibold rounded-full border border-violet-200 dark:border-violet-900">
-                Curriculum Aligned
-              </span>
-            </h1>
-            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">
-              Instantly create differentiated assessments, question papers, and detailed solution rubrics across CBSE, ICSE & Cambridge.
-            </p>
+
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            <Button
+              variant="outline"
+              size="sm"
+              icon={showAnswerKey ? EyeOff : Eye}
+              onClick={() => setShowAnswerKey(!showAnswerKey)}
+            >
+              {showAnswerKey ? 'Hide Answer Key' : 'Reveal Solution Key'}
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              icon={Printer}
+              onClick={() => window.print()}
+            >
+              Print Clean Paper
+            </Button>
+
+            <Button
+              variant="primary"
+              size="sm"
+              icon={Send}
+              onClick={handleAssignToClass}
+            >
+              Assign to Class
+            </Button>
           </div>
         </div>
-
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => setShowAnswerKey(!showAnswerKey)}
-            className="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-slate-200 dark:border-slate-700"
-          >
-            {showAnswerKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            {showAnswerKey ? 'Hide Teacher Answer Key' : 'Reveal Solution Key'}
-          </button>
-
-          <button
-            onClick={() => window.print()}
-            className="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-slate-200 dark:border-slate-700"
-          >
-            <Printer className="w-4 h-4" />
-            Print Clean Exam Paper
-          </button>
-
-          <button
-            onClick={handleAssignToClass}
-            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs flex items-center gap-2 shadow-sm transition-all"
-          >
-            <Send className="w-4 h-4" />
-            Assign Directly to Class
-          </button>
-        </div>
-      </div>
+      </Card>
 
       {/* Main Layout: Generator Form (4 cols) & Worksheet Paper Preview (8 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Form: Parameter Controls (4 cols) */}
-        <div className="lg:col-span-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 print:hidden">
-          <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
-            <Sliders className="w-4 h-4 text-violet-600" />
+        <Card variant="glass" className="lg:col-span-4 p-5 sm:p-6 space-y-4 print:hidden">
+          <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2 font-display">
+            <Sliders className="w-4 h-4 text-violet-600 dark:text-violet-400" />
             Assessment Parameters
           </h3>
 
@@ -323,72 +333,73 @@ export const AiWorksheetGeneratorModule: React.FC = () => {
               ))}
             </div>
           </div>
-        </div>
+        </Card>
 
         {/* Right Preview: Clean Printable Exam Paper (8 cols) */}
-        <div className="lg:col-span-8 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <Card variant="glass" className="lg:col-span-8 p-6 md:p-8 rounded-3xl shadow-md">
           {activeSheet ? (
             <div className="space-y-6">
               {/* Official School Exam Header */}
               <div className="text-center pb-6 border-b-2 border-slate-800 dark:border-slate-700 space-y-1.5">
-                <div className="text-xs tracking-widest uppercase font-bold text-indigo-600 dark:text-indigo-400">
+                <div className="text-xs tracking-widest uppercase font-bold text-indigo-600 dark:text-indigo-400 font-mono">
                   SMARTSCHOOL OS • ACADEMIC ASSESSMENT DIVISION
                 </div>
-                <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white uppercase">
+                <h2 className="text-xl md:text-2xl font-black text-slate-900 dark:text-white uppercase font-display">
                   {activeSheet.subject} — {activeSheet.topic}
                 </h2>
-                <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-center gap-4 pt-1">
-                  <span>Class: <strong>{activeSheet.gradeClass}</strong></span>
-                  <span>Board: <strong>{activeSheet.curriculum}</strong></span>
-                  <span>Difficulty: <strong>{activeSheet.difficulty}</strong></span>
-                  <span>Total Marks: <strong>{activeSheet.totalMarks}</strong></span>
-                  <span>Time: <strong>{activeSheet.estimatedMinutes} Mins</strong></span>
-                </div>
-
-                {/* Printable Student Details Line */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 text-xs text-left border-t border-dashed border-slate-300 dark:border-slate-700 mt-4">
-                  <div>Student Name: _____________________</div>
-                  <div>Roll No: ________________</div>
-                  <div>Date: ________________</div>
+                <div className="flex flex-wrap justify-center items-center gap-3 text-xs font-semibold text-slate-500 pt-1">
+                  <span>Class: {activeSheet.gradeClass}</span>
+                  <span>•</span>
+                  <span>Board: {activeSheet.curriculum}</span>
+                  <span>•</span>
+                  <span>Difficulty: {activeSheet.difficulty}</span>
+                  <span>•</span>
+                  <span>Max Marks: {activeSheet.totalMarks}</span>
                 </div>
               </div>
 
               {/* Questions List */}
               <div className="space-y-6">
                 {activeSheet.questions.map((q, idx) => (
-                  <div key={q.id} className="space-y-2 text-sm">
+                  <div
+                    key={q.id}
+                    className="p-4 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-800 space-y-3"
+                  >
                     <div className="flex justify-between items-start gap-4">
-                      <div className="font-bold text-slate-900 dark:text-white">
-                        Q{idx + 1}. {q.question}
+                      <div className="font-bold text-slate-900 dark:text-white text-sm">
+                        <span className="text-indigo-600 dark:text-indigo-400 font-mono mr-1">
+                          Q{idx + 1}.
+                        </span>{' '}
+                        {q.question}
                       </div>
-                      <span className="font-mono text-xs font-bold text-slate-500 dark:text-slate-400 shrink-0 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                        [{q.marks} Marks]
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-200/80 dark:bg-slate-700 text-slate-700 dark:text-slate-300 shrink-0">
+                        [{q.marks} Mark{q.marks > 1 ? 's' : ''}]
                       </span>
                     </div>
 
-                    {/* Multiple Choice Options */}
-                    {q.options && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-4 pt-1 text-xs">
+                    {/* MCQ Options Grid */}
+                    {q.type === 'mcq' && q.options && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                         {q.options.map((opt, optIdx) => (
                           <div
                             key={optIdx}
-                            className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 font-medium"
+                            className="p-2.5 rounded-xl border border-slate-200/70 dark:border-slate-700/60 bg-white/70 dark:bg-slate-800/60 text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2"
                           >
-                            <span className="font-bold text-indigo-600 dark:text-indigo-400 mr-2">
-                              {String.fromCharCode(65 + optIdx)}.
+                            <span className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-[10px] shrink-0">
+                              {String.fromCharCode(65 + optIdx)}
                             </span>
-                            {opt}
+                            <span>{opt}</span>
                           </div>
                         ))}
                       </div>
                     )}
 
-                    {/* Teacher Solution & Rubric Key (Collapsible) */}
+                    {/* Teacher Solution Key Overlay */}
                     {showAnswerKey && (
-                      <div className="mt-3 p-3.5 bg-emerald-50/70 dark:bg-emerald-950/40 border-l-4 border-emerald-500 rounded-r-xl text-xs space-y-1 print:hidden">
-                        <div className="font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          Correct Answer: {q.correctAnswer}
+                      <div className="p-3 bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200/70 dark:border-emerald-900/50 rounded-xl text-xs space-y-1">
+                        <div className="flex items-center gap-1.5 font-bold text-emerald-800 dark:text-emerald-300">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          <span>Correct Answer: {q.correctAnswer}</span>
                         </div>
                         <div className="text-slate-600 dark:text-slate-300 leading-relaxed">
                           <strong>Solution Explanation:</strong> {q.explanation}
@@ -400,7 +411,7 @@ export const AiWorksheetGeneratorModule: React.FC = () => {
               </div>
 
               {/* Footer */}
-              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
+              <div className="pt-6 border-t border-slate-200/80 dark:border-slate-800 flex justify-between items-center text-xs text-slate-400">
                 <span>Created by: {activeSheet.teacherName}</span>
                 <span className="font-mono">Generated on: {activeSheet.generatedAt}</span>
               </div>
@@ -410,7 +421,7 @@ export const AiWorksheetGeneratorModule: React.FC = () => {
               Select or generate a worksheet from the left panel.
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   );

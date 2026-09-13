@@ -121,52 +121,64 @@ export const StudentsModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <GraduationCap className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-            Students Directory & Profiles
-          </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Central student repository with 9-tab profile view, medical data, academics, fees & transport
-          </p>
-        </div>
+      <Card variant="glass" className="p-5 border-slate-200/80 dark:border-slate-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-32 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none rounded-full blur-2xl" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl text-white shadow-lg shadow-indigo-600/25">
+              <GraduationCap className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                  Students Directory & Profiles
+                </h1>
+                <Badge variant="indigo" dot>
+                  {filteredStudents.length} Active
+                </Badge>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Central student repository with 9-tab profile view, medical data, academics, fees & transport
+              </p>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-2.5">
-          <Button
-            variant="outline"
-            size="sm"
-            icon={Download}
-            onClick={() => showToast('Export Complete', 'Student list exported to CSV successfully', 'info')}
-          >
-            Export
-          </Button>
-
-          {canAccess('students', 'create') && (
+          <div className="flex items-center gap-2.5">
             <Button
-              variant="primary"
+              variant="outline"
               size="sm"
-              icon={Plus}
-              onClick={() => setIsAddModalOpen(true)}
+              icon={Download}
+              onClick={() => showToast('Export Complete', 'Student list exported to CSV successfully', 'info')}
             >
-              Add Student
+              Export
             </Button>
-          )}
+
+            {canAccess('students', 'create') && (
+              <Button
+                variant="primary"
+                size="sm"
+                icon={Plus}
+                onClick={() => setIsAddModalOpen(true)}
+              >
+                Add Student
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      </Card>
 
       {/* Filter & Search Bar */}
-      <Card className="p-4">
+      <Card variant="glass" className="p-4 border-slate-200/80 dark:border-slate-800/80">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Search Box */}
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full sm:w-80">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search by name, roll, admission #..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl text-xs bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:outline-none dark:text-white"
+              className="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:text-white transition-all"
             />
           </div>
 
@@ -175,7 +187,7 @@ export const StudentsModule: React.FC = () => {
             <select
               value={selectedClass}
               onChange={(e) => setSelectedClass(e.target.value)}
-              className="w-full sm:w-auto px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200"
+              className="w-full sm:w-auto px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             >
               <option value="all">All Grades ({db.students.length} Students)</option>
               {db.sections.map((sec) => (
@@ -189,10 +201,10 @@ export const StudentsModule: React.FC = () => {
       </Card>
 
       {/* Students Table */}
-      <Card className="p-0 overflow-hidden">
+      <Card variant="glass" className="p-0 overflow-hidden border-slate-200/80 dark:border-slate-800/80 shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <thead className="bg-slate-50/80 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider backdrop-blur-xs">
               <tr>
                 <th className="py-3.5 px-4">Student</th>
                 <th className="py-3.5 px-4">Admission #</th>
@@ -203,7 +215,7 @@ export const StudentsModule: React.FC = () => {
                 <th className="py-3.5 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200/70 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-200/70 dark:divide-slate-800/80">
               {filteredStudents.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-10 text-center text-slate-400">
@@ -214,7 +226,7 @@ export const StudentsModule: React.FC = () => {
                 filteredStudents.map((std) => (
                   <tr
                     key={std.id}
-                    className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors"
+                    className="hover:bg-indigo-50/40 dark:hover:bg-indigo-950/25 transition-colors"
                   >
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">

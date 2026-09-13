@@ -25,6 +25,9 @@ import { useAuth } from '../../../context/AuthContext';
 import { RoomOccupancy } from '../../../types/enterprise';
 import { EnterpriseState } from '../../../services/enterpriseStore';
 import { Modal } from '../../common/Modal';
+import { Card } from '../../common/Card';
+import { Badge } from '../../common/Badge';
+import { Button } from '../../common/Button';
 
 export const DigitalTwinModule: React.FC = () => {
   const { state, toggleRoomLight, toggleRoomProjector, updateRoomStatus, mutate } = useEnterprise();
@@ -107,13 +110,13 @@ export const DigitalTwinModule: React.FC = () => {
   const getStatusBadge = (status: RoomOccupancy['status']) => {
     switch (status) {
       case 'occupied':
-        return <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>In Session</span>;
+        return <Badge variant="emerald" dot>In Session</Badge>;
       case 'vacant':
-        return <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">Vacant</span>;
+        return <Badge variant="slate">Vacant</Badge>;
       case 'cleaning':
-        return <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">Sanitizing</span>;
+        return <Badge variant="amber" dot>Sanitizing</Badge>;
       case 'maintenance':
-        return <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300">Maintenance</span>;
+        return <Badge variant="rose" dot>Maintenance</Badge>;
     }
   };
 
@@ -121,125 +124,132 @@ export const DigitalTwinModule: React.FC = () => {
     <div className="p-4 md:p-6 space-y-6 max-w-[1600px] mx-auto">
       {/* Emergency Alert Banner if lockdown simulated */}
       {isLockdownActive && (
-        <div className="p-4 rounded-xl bg-rose-600 text-white flex items-center justify-between shadow-lg animate-bounce duration-1000">
-          <div className="flex items-center gap-3">
-            <ShieldAlert className="w-8 h-8 text-rose-100 animate-spin" />
+        <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-500 to-red-600 text-white flex items-center justify-between shadow-xl shadow-rose-500/20 border border-rose-400/40 animate-pulse">
+          <div className="flex items-center gap-3.5">
+            <div className="p-2 bg-white/20 rounded-xl">
+              <ShieldAlert className="w-8 h-8 text-white animate-spin" />
+            </div>
             <div>
-              <h4 className="font-bold text-lg">CAMPUS EMERGENCY PROTOCOL ACTIVE — PERIMETER SEALED</h4>
+              <h4 className="font-black text-lg tracking-tight">CAMPUS EMERGENCY PROTOCOL ACTIVE — PERIMETER SEALED</h4>
               <p className="text-rose-100 text-xs md:text-sm">All classroom access biometric locks engaged. Fire barriers standby. Live CCTV routed to IT Command.</p>
             </div>
           </div>
-          <button
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={handleSimulateLockdown}
-            className="px-4 py-2 bg-white text-rose-700 rounded-lg font-bold text-xs hover:bg-rose-50 shadow"
+            className="bg-white text-rose-700 hover:bg-rose-50 font-black shadow-lg"
           >
             Cancel Lockdown
-          </button>
+          </Button>
         </div>
       )}
 
       {/* Header & High-Level Telemetry */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-indigo-50 dark:bg-indigo-950/60 rounded-xl text-indigo-600 dark:text-indigo-400">
-              <Building2 className="w-6 h-6" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                Campus Digital Twin
-                <span className="text-xs px-2.5 py-0.5 bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-semibold rounded-full border border-indigo-200 dark:border-indigo-800">
-                  Real-time IoT v2.4
-                </span>
-              </h1>
-              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">
-                Live spatial telemetry, environmental sensor mesh, smart energy controls & occupancy heatmaps.
-              </p>
+      <Card variant="glass" className="p-5 md:p-6 border-slate-200/80 dark:border-slate-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-40 bg-gradient-to-br from-indigo-500/10 via-teal-500/5 to-transparent pointer-events-none rounded-full blur-2xl" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+          <div>
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-gradient-to-br from-indigo-500 to-teal-500 rounded-2xl text-white shadow-lg shadow-indigo-500/25">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+                    Campus Digital Twin
+                  </h1>
+                  <Badge variant="indigo" dot>
+                    Real-time IoT v2.4
+                  </Badge>
+                </div>
+                <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  Live spatial telemetry, environmental sensor mesh, smart energy controls & occupancy heatmaps.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={handleSimulateLockdown}
-            className={`px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all shadow-sm ${
-              isLockdownActive
-                ? 'bg-rose-600 text-white hover:bg-rose-700'
-                : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 hover:bg-rose-100 border border-rose-200 dark:border-rose-900/50'
-            }`}
-          >
-            <ShieldAlert className="w-4 h-4" />
-            {isLockdownActive ? 'Emergency Lockdown Active' : 'Simulate Campus Lockdown'}
-          </button>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Button
+              variant={isLockdownActive ? 'danger' : 'secondary'}
+              size="sm"
+              icon={<ShieldAlert className="w-4 h-4" />}
+              onClick={handleSimulateLockdown}
+            >
+              {isLockdownActive ? 'Emergency Lockdown Active' : 'Simulate Campus Lockdown'}
+            </Button>
 
-          <button
-            onClick={() => showToast('Sensor Mesh Polled', 'Synced 48 IoT sensor nodes across 3 campus wings.', 'success')}
-            className="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold text-xs flex items-center gap-1.5 border border-slate-200 dark:border-slate-700"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            Refresh Mesh
-          </button>
+            <Button
+              variant="secondary"
+              size="sm"
+              icon={<RefreshCw className="w-3.5 h-3.5" />}
+              onClick={() => showToast('Sensor Mesh Polled', 'Synced 48 IoT sensor nodes across 3 campus wings.', 'success')}
+            >
+              Refresh Mesh
+            </Button>
+          </div>
         </div>
-      </div>
+      </Card>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 rounded-xl text-emerald-600 dark:text-emerald-400">
+        <Card variant="glass" hover className="p-4 border-slate-200/70 dark:border-slate-800/70 flex items-center gap-3.5">
+          <div className="p-3 bg-emerald-500/10 dark:bg-emerald-500/20 rounded-2xl text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shadow-2xs">
             <Users className="w-5 h-5" />
           </div>
           <div>
             <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Campus Occupancy</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xl font-black text-slate-900 dark:text-white mt-0.5 tracking-tight">
               {totalOccupied} / {totalCapacity}
-              <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 ml-1.5">
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 ml-1.5">
                 ({campusOccupancyRate}%)
               </span>
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-blue-50 dark:bg-blue-950/50 rounded-xl text-blue-600 dark:text-blue-400">
+        <Card variant="glass" hover className="p-4 border-slate-200/70 dark:border-slate-800/70 flex items-center gap-3.5">
+          <div className="p-3 bg-blue-500/10 dark:bg-blue-500/20 rounded-2xl text-blue-600 dark:text-blue-400 border border-blue-500/20 shadow-2xs">
             <Layers className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Active In-Session Spaces</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Active Spaces</div>
+            <div className="text-xl font-black text-slate-900 dark:text-white mt-0.5 tracking-tight">
               {activeClassesCount} / {state.rooms.length}
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-amber-50 dark:bg-amber-950/50 rounded-xl text-amber-600 dark:text-amber-400">
+        <Card variant="glass" hover className="p-4 border-slate-200/70 dark:border-slate-800/70 flex items-center gap-3.5">
+          <div className="p-3 bg-amber-500/10 dark:bg-amber-500/20 rounded-2xl text-amber-600 dark:text-amber-400 border border-amber-500/20 shadow-2xs">
             <Thermometer className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Avg Campus Temperature</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Avg Temperature</div>
+            <div className="text-xl font-black text-slate-900 dark:text-white mt-0.5 tracking-tight">
               {avgTemp}°C
-              <span className="text-xs text-slate-400 font-normal ml-1">Optimal (22°C)</span>
+              <span className="text-xs text-slate-400 font-normal ml-1">(Optimal)</span>
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-teal-50 dark:bg-teal-950/50 rounded-xl text-teal-600 dark:text-teal-400">
+        <Card variant="glass" hover className="p-4 border-slate-200/70 dark:border-slate-800/70 flex items-center gap-3.5">
+          <div className="p-3 bg-teal-500/10 dark:bg-teal-500/20 rounded-2xl text-teal-600 dark:text-teal-400 border border-teal-500/20 shadow-2xs">
             <Wind className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Indoor Air Quality (CO₂)</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">Indoor Air Quality</div>
+            <div className="text-xl font-black text-slate-900 dark:text-white mt-0.5 tracking-tight">
               {avgCo2} ppm
-              <span className="text-xs text-teal-600 dark:text-teal-400 font-semibold ml-1">Fresh Air</span>
+              <span className="text-xs text-teal-600 dark:text-teal-400 font-bold ml-1">Fresh</span>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row gap-3 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <Card variant="glass" className="p-4 border-slate-200/80 dark:border-slate-800/80 flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
           <input
@@ -247,7 +257,7 @@ export const DigitalTwinModule: React.FC = () => {
             placeholder="Search by Room number, Name, Teacher or Subject..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-400"
           />
         </div>
 
@@ -258,7 +268,7 @@ export const DigitalTwinModule: React.FC = () => {
           <select
             value={selectedBuilding}
             onChange={(e) => setSelectedBuilding(e.target.value)}
-            className="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-900 dark:text-white focus:outline-none"
+            className="px-3 py-2 bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 rounded-xl text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="all">All Campus Wings</option>
             <option value="Main Academic Wing">Main Academic Wing</option>
@@ -269,7 +279,7 @@ export const DigitalTwinModule: React.FC = () => {
           <select
             value={selectedFloor}
             onChange={(e) => setSelectedFloor(e.target.value)}
-            className="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-semibold text-slate-900 dark:text-white focus:outline-none"
+            className="px-3 py-2 bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 rounded-xl text-xs font-semibold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="all">All Floors</option>
             <option value="Ground">Ground Floor</option>
@@ -277,43 +287,46 @@ export const DigitalTwinModule: React.FC = () => {
             <option value="2nd Floor">2nd Floor</option>
           </select>
         </div>
-      </div>
+      </Card>
 
       {/* Interactive Spatial Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {rooms.map((room) => {
           const occupancyPercent = Math.round((room.currentOccupancy / room.capacity) * 100);
           const isHighCo2 = room.co2Ppm > 700;
+          const isOccupied = room.status === 'occupied';
 
           return (
-            <div
+            <Card
               key={room.id}
-              className={`p-5 rounded-2xl border transition-all duration-200 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md ${
-                room.status === 'occupied'
-                  ? 'border-indigo-200 dark:border-indigo-900/60'
-                  : 'border-slate-200 dark:border-slate-800'
+              variant="glass"
+              hover
+              className={`p-5 relative transition-all duration-300 ${
+                isOccupied
+                  ? 'border-indigo-500/30 dark:border-indigo-500/30 ring-1 ring-indigo-500/20 shadow-indigo-500/5'
+                  : 'border-slate-200/80 dark:border-slate-800/80'
               }`}
             >
               {/* Room Card Header */}
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-xs font-bold text-slate-700 dark:text-slate-300">
+                    <span className="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-mono text-xs font-bold text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60">
                       {room.roomNumber}
                     </span>
                     {getStatusBadge(room.status)}
                   </div>
-                  <h3 className="font-bold text-base text-slate-900 dark:text-white mt-1.5 leading-snug">
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white mt-1.5 leading-snug tracking-tight">
                     {room.name}
                   </h3>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium">
                     {room.building} • {room.floor}
                   </div>
                 </div>
 
                 <button
                   onClick={() => setInspectedRoom(room)}
-                  className="p-1.5 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  className="p-2 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-xl hover:bg-indigo-50 dark:hover:bg-indigo-950/50 transition-colors"
                   title="Inspect Spatial Telemetry"
                 >
                   <Eye className="w-4 h-4" />
@@ -321,7 +334,7 @@ export const DigitalTwinModule: React.FC = () => {
               </div>
 
               {/* Class & Teacher Details */}
-              <div className="mt-4 p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-1 text-xs">
+              <div className="mt-4 p-3 bg-slate-50/80 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 space-y-1.5 text-xs">
                 <div className="flex justify-between">
                   <span className="text-slate-500 dark:text-slate-400">Class / Section:</span>
                   <span className="font-semibold text-slate-800 dark:text-slate-200">{room.assignedClass || 'Unassigned'}</span>
@@ -344,14 +357,14 @@ export const DigitalTwinModule: React.FC = () => {
                     {room.currentOccupancy} / {room.capacity} ({occupancyPercent}%)
                   </span>
                 </div>
-                <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-2 w-full bg-slate-200/70 dark:bg-slate-700/60 rounded-full overflow-hidden p-0.5">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${
+                    className={`h-full rounded-full transition-all duration-500 shadow-2xs ${
                       occupancyPercent > 90
-                        ? 'bg-rose-500'
+                        ? 'bg-gradient-to-r from-rose-500 to-red-600'
                         : occupancyPercent > 70
-                        ? 'bg-amber-500'
-                        : 'bg-emerald-500'
+                        ? 'bg-gradient-to-r from-amber-400 to-orange-500'
+                        : 'bg-gradient-to-r from-emerald-400 to-teal-500'
                     }`}
                     style={{ width: `${Math.min(100, occupancyPercent)}%` }}
                   />
@@ -359,27 +372,27 @@ export const DigitalTwinModule: React.FC = () => {
               </div>
 
               {/* IoT Telemetry Strip */}
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2 text-xs">
-                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 grid grid-cols-2 gap-2 text-xs">
+                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-medium">
                   <Thermometer className="w-3.5 h-3.5 text-amber-500" />
                   <span>{room.temperatureC}°C</span>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300">
+                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-medium">
                   <Wind className={`w-3.5 h-3.5 ${isHighCo2 ? 'text-rose-500' : 'text-teal-500'}`} />
                   <span>{room.co2Ppm} ppm CO₂</span>
                 </div>
               </div>
 
               {/* Interactive Smart Hardware Switches */}
-              <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="mt-3.5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleToggleLight(room)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs ${
                       room.lightsOn
-                        ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
-                        : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+                        ? 'bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 border border-amber-300/60 dark:border-amber-800/60'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
                     }`}
                     title="Toggle Lighting"
                   >
@@ -389,10 +402,10 @@ export const DigitalTwinModule: React.FC = () => {
 
                   <button
                     onClick={() => handleToggleProjector(room)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs ${
                       room.projectorOn
-                        ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-300'
-                        : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+                        ? 'bg-indigo-100 dark:bg-indigo-950/80 text-indigo-900 dark:text-indigo-300 border border-indigo-300/60 dark:border-indigo-800/60'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700'
                     }`}
                     title="Toggle Smart Display / Projector"
                   >
@@ -401,14 +414,16 @@ export const DigitalTwinModule: React.FC = () => {
                   </button>
                 </div>
 
-                <button
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setInspectedRoom(room)}
-                  className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold hover:underline"
+                  className="text-xs text-indigo-600 dark:text-indigo-400 font-bold px-2 py-1"
                 >
                   Inspect →
-                </button>
+                </Button>
               </div>
-            </div>
+            </Card>
           );
         })}
       </div>

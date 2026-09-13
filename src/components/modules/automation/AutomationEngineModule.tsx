@@ -20,6 +20,9 @@ import { useSchool } from '../../../context/SchoolContext';
 import { AutomationRule } from '../../../types/enterprise';
 import { EnterpriseState } from '../../../services/enterpriseStore';
 import { Modal } from '../../common/Modal';
+import { Card } from '../../common/Card';
+import { Button } from '../../common/Button';
+import { Badge } from '../../common/Badge';
 
 export const AutomationEngineModule: React.FC = () => {
   const { state, toggleAutomationRule, executeAutomationRule, mutate } = useEnterprise();
@@ -87,86 +90,92 @@ export const AutomationEngineModule: React.FC = () => {
   const activeRulesCount = state.automationRules.filter((r) => r.isEnabled).length;
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-[1600px] mx-auto">
+    <div className="space-y-6 max-w-[1600px] mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-amber-50 dark:bg-amber-950/60 rounded-xl text-amber-600 dark:text-amber-400">
-            <Zap className="w-6 h-6" />
+      <Card variant="glass" className="p-5 sm:p-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 bg-gradient-to-tr from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-amber-500/25 shrink-0">
+              <Zap className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-display">
+                  Event-Driven Automation Engine
+                </h1>
+                <Badge variant="warning" dot size="sm">
+                  IF-THEN Rules
+                </Badge>
+              </div>
+              <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                Autonomous triggers that automatically alert parents, flag principals, or schedule interventions based on live school events.
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              Event-Driven Automation Engine
-              <span className="text-xs px-2.5 py-0.5 bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-semibold rounded-full border border-amber-200 dark:border-amber-900">
-                IF-THEN Rules
-              </span>
-            </h1>
-            <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">
-              Autonomous triggers that automatically alert parents, flag principals, or schedule interventions based on live school events.
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => setIsAddRuleOpen(true)}
-            className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-bold text-xs flex items-center gap-2 shadow-sm transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            Create Automation Rule
-          </button>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <Button
+              variant="primary"
+              size="sm"
+              icon={Plus}
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 shadow-amber-500/25"
+              onClick={() => setIsAddRuleOpen(true)}
+            >
+              Create Automation Rule
+            </Button>
+          </div>
         </div>
-      </div>
+      </Card>
 
       {/* KPI Stats Strip */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-amber-50 dark:bg-amber-950/50 rounded-xl text-amber-600">
+        <Card variant="glass" className="p-4 flex items-center gap-3.5 shadow-xs">
+          <div className="w-11 h-11 rounded-2xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center ring-1 ring-amber-500/20 shrink-0">
             <Zap className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium">Active Rules</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Active Rules</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white font-display mt-0.5">
               {activeRulesCount} / {state.automationRules.length}
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-emerald-50 dark:bg-emerald-950/50 rounded-xl text-emerald-600">
+        <Card variant="glass" className="p-4 flex items-center gap-3.5 shadow-xs">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center ring-1 ring-emerald-500/20 shrink-0">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium">Total Actions Dispatched</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Total Actions Dispatched</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white font-display mt-0.5">
               {totalExecutions.toLocaleString()}
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-indigo-50 dark:bg-indigo-950/50 rounded-xl text-indigo-600">
+        <Card variant="glass" className="p-4 flex items-center gap-3.5 shadow-xs">
+          <div className="w-11 h-11 rounded-2xl bg-indigo-500/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center ring-1 ring-indigo-500/20 shrink-0">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium">Processing Latency</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Processing Latency</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white font-display mt-0.5">
               &lt; 300ms
             </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-center gap-3">
-          <div className="p-3 bg-rose-50 dark:bg-rose-950/50 rounded-xl text-rose-600">
+        <Card variant="glass" className="p-4 flex items-center gap-3.5 shadow-xs">
+          <div className="w-11 h-11 rounded-2xl bg-rose-500/10 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 flex items-center justify-center ring-1 ring-rose-500/20 shrink-0">
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xs text-slate-500 font-medium">Auto-Intercepted Risks</div>
-            <div className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Auto-Intercepted Risks</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white font-display mt-0.5">
               56
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       {/* Rules List */}

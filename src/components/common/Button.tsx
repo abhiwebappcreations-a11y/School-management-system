@@ -5,7 +5,7 @@ import { LucideIcon } from 'lucide-react';
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'ghost' | 'success';
   size?: 'sm' | 'md' | 'lg';
-  icon?: LucideIcon;
+  icon?: LucideIcon | React.ReactNode;
   iconPosition?: 'left' | 'right';
   isLoading?: boolean;
 }
@@ -14,7 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   variant = 'primary',
   size = 'md',
-  icon: Icon,
+  icon,
   iconPosition = 'left',
   isLoading = false,
   className = '',
@@ -42,6 +42,15 @@ export const Button: React.FC<ButtonProps> = ({
     lg: 'text-base px-6 py-2.5 rounded-2xl gap-2.5 font-semibold tracking-tight',
   };
 
+  const renderIcon = (iconToRender: LucideIcon | React.ReactNode) => {
+    if (!iconToRender) return null;
+    if (React.isValidElement(iconToRender)) {
+      return iconToRender;
+    }
+    const IconComp = iconToRender as LucideIcon;
+    return <IconComp className="w-4 h-4 shrink-0" />;
+  };
+
   return (
     <button
       className={clsx(
@@ -57,9 +66,9 @@ export const Button: React.FC<ButtonProps> = ({
         <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
       ) : (
         <>
-          {Icon && iconPosition === 'left' && <Icon className="w-4 h-4 shrink-0" />}
+          {icon && iconPosition === 'left' && renderIcon(icon)}
           {children}
-          {Icon && iconPosition === 'right' && <Icon className="w-4 h-4 shrink-0" />}
+          {icon && iconPosition === 'right' && renderIcon(icon)}
         </>
       )}
     </button>

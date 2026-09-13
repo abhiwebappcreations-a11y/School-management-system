@@ -6,6 +6,7 @@ export interface CardProps {
   className?: string;
   onClick?: () => void;
   hoverable?: boolean;
+  hover?: boolean;
   variant?: 'default' | 'glass' | 'gradient' | 'glow';
 }
 
@@ -14,8 +15,10 @@ export const Card: React.FC<CardProps> = ({
   className = '',
   onClick,
   hoverable = false,
+  hover = false,
   variant = 'default',
 }) => {
+  const isHover = hoverable || hover;
   const variantStyles = {
     default:
       'bg-white dark:bg-slate-900/95 border border-slate-200/80 dark:border-slate-800/90 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.4)]',
@@ -33,7 +36,7 @@ export const Card: React.FC<CardProps> = ({
       className={clsx(
         'rounded-2xl p-5 sm:p-6 transition-all duration-200 relative overflow-hidden',
         variantStyles[variant],
-        hoverable &&
+        isHover &&
           'hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 dark:hover:shadow-indigo-900/25 hover:border-indigo-300/80 dark:hover:border-indigo-600/60 cursor-pointer',
         className
       )}
