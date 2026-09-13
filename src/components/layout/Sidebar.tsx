@@ -144,22 +144,22 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
 
   return (
     <aside
-      className={`hidden md:flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-all duration-300 relative select-none ${
+      className={`hidden md:flex flex-col bg-white/85 dark:bg-slate-900/85 backdrop-blur-xl border-r border-slate-200/80 dark:border-slate-800/80 transition-all duration-300 relative select-none z-20 ${
         isCollapsed ? 'w-20' : 'w-64 lg:w-72'
       }`}
     >
       {/* Brand Header */}
-      <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200 dark:border-slate-800">
+      <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200/80 dark:border-slate-800/80">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-sky-400 flex items-center justify-center text-white font-black text-lg shadow-md shadow-indigo-500/20 shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-indigo-500/25 ring-2 ring-white/80 dark:ring-slate-800 shrink-0">
             S
           </div>
           {!isCollapsed && (
             <div className="truncate">
-              <div className="font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 text-sm">
-                SmartSchool <span className="text-indigo-600 dark:text-indigo-400 font-mono">OS</span>
+              <div className="font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-1.5 text-sm font-display">
+                SmartSchool <span className="px-1.5 py-0.2 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-mono text-[10px] font-bold border border-indigo-200/60 dark:border-indigo-800/60">OS</span>
               </div>
-              <div className="text-[10px] text-slate-400 font-medium tracking-wide">
+              <div className="text-[10px] text-slate-400 font-semibold tracking-wider uppercase">
                 OPERATING SYSTEM
               </div>
             </div>
@@ -169,7 +169,7 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
         {/* Toggle Collapse Button */}
         <button
           onClick={onToggle}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors"
           title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -177,7 +177,7 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
       </div>
 
       {/* Navigation Links (Strictly Filtered by USER -> DEVICE -> MODULE Permissions) */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
         {NAVIGATION_GROUPS.map((group) => {
           // Filter items by permission check
           const authorizedItems = group.items.filter((item) => canAccess(item.id, 'view'));
@@ -192,11 +192,11 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
               {!isCollapsed && (
                 <button
                   onClick={() => toggleGroup(group.groupName)}
-                  className="w-full flex items-center justify-between px-3 py-1 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-1 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                 >
                   <span>{group.groupName}</span>
                   <ChevronDown
-                    className={`w-3 h-3 transition-transform ${isGroupCollapsed ? '-rotate-90' : ''}`}
+                    className={`w-3 h-3 transition-transform duration-200 ${isGroupCollapsed ? '-rotate-90' : ''}`}
                   />
                 </button>
               )}
@@ -211,24 +211,24 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
                       <button
                         key={item.id}
                         onClick={() => setActiveModule(item.id)}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all ${
+                        className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-medium transition-all duration-150 ${
                           isActive
-                            ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-600/20 font-semibold'
-                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/60'
+                            ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/25 font-semibold'
+                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:translate-x-0.5'
                         } ${isCollapsed ? 'justify-center px-0' : ''}`}
                         title={isCollapsed ? item.label : undefined}
                       >
-                        <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400'}`} />
+                        <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400'}`} />
 
                         {!isCollapsed && (
                           <>
                             <span className="flex-1 text-left truncate">{t(item.id) !== item.id ? t(item.id) : item.label}</span>
                             {item.badge && (
                               <span
-                                className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase ${
+                                className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
                                   isActive
-                                    ? 'bg-indigo-700 text-indigo-100'
-                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                                    ? 'bg-white/20 text-white backdrop-blur-xs'
+                                    : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200/60 dark:border-slate-700/60'
                                 }`}
                               >
                                 {item.badge}
@@ -248,12 +248,15 @@ export const Sidebar: React.FC<{ isCollapsed: boolean; onToggle: () => void }> =
 
       {/* Security Status Card in Sidebar Footer */}
       {!isCollapsed && (
-        <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40">
-          <div className="flex items-center gap-2 p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px]">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+        <div className="p-3 border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/40">
+          <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800/80 text-[11px] shadow-xs">
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
             <div className="flex-1 truncate">
-              <span className="text-slate-400 block text-[10px]">DEVICE ENFORCEMENT</span>
-              <span className="font-semibold text-slate-700 dark:text-slate-300 capitalize">
+              <span className="text-slate-400 block text-[9px] font-bold uppercase tracking-wider">DEVICE ENFORCEMENT</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-300 capitalize text-xs">
                 {effectiveDevice} Mode Active
               </span>
             </div>

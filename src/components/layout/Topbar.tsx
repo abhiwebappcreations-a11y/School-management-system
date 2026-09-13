@@ -54,16 +54,16 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
   const unreadCount = db.notifications.filter((n) => !n.isRead).length;
 
   return (
-    <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 px-4 lg:px-6 flex items-center justify-between gap-3 select-none">
+    <header className="h-16 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 sticky top-0 z-30 px-4 lg:px-6 flex items-center justify-between gap-3 select-none shadow-xs">
       {/* Left: Global Search trigger */}
       <div className="flex items-center gap-3">
         <button
           onClick={() => setIsSearchOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 hover:bg-slate-200/70 dark:hover:bg-slate-800 text-xs font-medium border border-transparent dark:border-slate-700/60 transition-colors w-44 sm:w-64"
+          className="flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-slate-100/90 dark:bg-slate-800/70 text-slate-500 dark:text-slate-400 hover:bg-slate-200/70 dark:hover:bg-slate-800 text-xs font-medium border border-slate-200/50 dark:border-slate-700/50 transition-all hover:border-indigo-400/50 dark:hover:border-indigo-500/50 w-44 sm:w-64 shadow-xs"
         >
           <Search className="w-3.5 h-3.5 text-slate-400" />
           <span className="flex-1 text-left truncate">Search anything...</span>
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 rounded shadow-xs text-slate-400 border border-slate-200 dark:border-slate-600">
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-white dark:bg-slate-700 rounded-md shadow-xs text-slate-400 border border-slate-200 dark:border-slate-600">
             Ctrl K
           </kbd>
         </button>
@@ -77,15 +77,15 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
               setIsDeviceMenuOpen(false);
               setIsUserMenuOpen(false);
             }}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/80 dark:border-slate-800"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/80 dark:border-slate-800 shadow-xs bg-slate-50 dark:bg-slate-800/50"
           >
             <Building2 className="w-3.5 h-3.5 text-indigo-500" />
-            <span className="truncate max-w-[120px]">{selectedBranch.name}</span>
+            <span className="truncate max-w-[120px] font-semibold">{selectedBranch.name}</span>
             <ChevronDown className="w-3 h-3 text-slate-400" />
           </button>
 
           {isBranchMenuOpen && (
-            <div className="absolute left-0 mt-1.5 w-56 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-40 animate-in fade-in zoom-in-95">
+            <div className="absolute left-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-40 animate-in fade-in zoom-in-95">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Select Campus
               </div>
@@ -96,10 +96,10 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
                     setSelectedBranch(b);
                     setIsBranchMenuOpen(false);
                   }}
-                  className={`w-full text-left px-3 py-2 text-xs flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800 ${
+                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
                     selectedBranch.id === b.id
-                      ? 'text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50/50 dark:bg-indigo-950/30'
-                      : 'text-slate-700 dark:text-slate-300'
+                      ? 'text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-50/80 dark:bg-indigo-950/40'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   <div>
@@ -122,15 +122,15 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
               setIsDeviceMenuOpen(false);
               setIsUserMenuOpen(false);
             }}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/80 dark:border-slate-800"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-medium text-slate-700 dark:text-slate-300 transition-colors border border-slate-200/80 dark:border-slate-800 shadow-xs bg-slate-50 dark:bg-slate-800/50"
           >
             <Calendar className="w-3.5 h-3.5 text-amber-500" />
-            <span>AY {selectedYear.name}</span>
+            <span className="font-semibold">AY {selectedYear.name}</span>
             <ChevronDown className="w-3 h-3 text-slate-400" />
           </button>
 
           {isYearMenuOpen && (
-            <div className="absolute left-0 mt-1.5 w-44 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-slate-200 dark:border-slate-800 py-1 z-40 animate-in fade-in zoom-in-95">
+            <div className="absolute left-0 mt-2 w-48 glass-dropdown rounded-2xl p-1.5 z-40 animate-in fade-in zoom-in-95">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Academic Year
               </div>
@@ -171,10 +171,10 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
               setIsBranchMenuOpen(false);
               setIsYearMenuOpen(false);
             }}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-semibold transition-all shadow-xs ${
               deviceMode === 'auto'
-                ? 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
-                : 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 shadow-xs'
+                ? 'bg-slate-50 dark:bg-slate-800/60 border-slate-200/80 dark:border-slate-700/80 text-slate-700 dark:text-slate-300'
+                : 'bg-indigo-50/90 dark:bg-indigo-950/70 border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 shadow-xs'
             }`}
             title="Switch or simulate Desktop / Mobile hardware to evaluate USER → DEVICE → MODULE → ACTION → ALLOW/DENY rules in real-time"
           >
@@ -183,18 +183,18 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
             ) : (
               <Laptop className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
             )}
-            <span className="hidden sm:inline">
+            <span className="hidden sm:inline font-medium">
               Device:{' '}
-              <strong className="capitalize font-bold">{effectiveDevice}</strong>
+              <strong className="capitalize font-bold text-slate-900 dark:text-white">{effectiveDevice}</strong>
               {deviceMode !== 'auto' && ' (Simulated)'}
             </span>
             <ChevronDown className="w-3 h-3 opacity-60" />
           </button>
 
           {isDeviceMenuOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-2 z-40 animate-in fade-in zoom-in-95">
+            <div className="absolute right-0 mt-2 w-64 glass-dropdown rounded-2xl p-2 z-40 animate-in fade-in zoom-in-95">
               <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 mb-1">
-                <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-display">
                   <ShieldCheck className="w-4 h-4 text-indigo-500" /> Device Policy Enforcement
                 </div>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
@@ -216,7 +216,7 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
                     }}
                     className={`w-full text-left p-2 rounded-xl text-xs flex flex-col transition-colors ${
                       deviceMode === item.mode
-                        ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-semibold'
+                        ? 'bg-indigo-50/90 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-semibold'
                         : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
@@ -235,22 +235,22 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
         {/* AI Assistant Quick Trigger */}
         <button
           onClick={() => setIsAiDrawerOpen(true)}
-          className="relative p-2 rounded-xl text-indigo-600 dark:text-indigo-400 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/60 border border-indigo-200 dark:border-indigo-800 transition-colors"
+          className="relative p-2 rounded-xl text-white bg-gradient-to-tr from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 shadow-md shadow-indigo-600/30 transition-all hover:scale-105 active:scale-95 border border-indigo-400/40"
           title="Open AI Administrative Assistant (Permission-Bounded)"
         >
           <Sparkles className="w-4 h-4" />
-          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-indigo-500 rounded-full ring-2 ring-white dark:ring-slate-900 animate-ping" />
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-amber-400 rounded-full ring-2 ring-white dark:ring-slate-900 animate-ping" />
         </button>
 
         {/* Notifications Bell */}
         <button
           onClick={() => setIsNotificationsOpen(true)}
-          className="relative p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="relative p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors border border-slate-200/60 dark:border-slate-800/60 shadow-xs"
           title="Notification Center"
         >
           <Bell className="w-4 h-4" />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+            <span className="absolute top-1 right-1 w-4 h-4 bg-rose-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-xs">
               {unreadCount}
             </span>
           )}
@@ -259,10 +259,10 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
         {/* Dark / Light Toggle */}
         <button
           onClick={toggleDarkMode}
-          className="p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          className="p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors border border-slate-200/60 dark:border-slate-800/60 shadow-xs"
           title="Toggle Light / Dark theme"
         >
-          {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
+          {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
         </button>
 
         {/* Multi-Language Selector Dropdown (8 Languages Supported) */}
@@ -275,7 +275,7 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
               setIsBranchMenuOpen(false);
               setIsYearMenuOpen(false);
             }}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 transition-colors shadow-xs"
             title="Switch Interface & AI Language"
           >
             <span className="text-sm">
@@ -288,7 +288,7 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
           </button>
 
           {isLangMenuOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800 p-1.5 z-40 animate-in fade-in zoom-in-95">
+            <div className="absolute right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-40 animate-in fade-in zoom-in-95">
               <div className="px-3 py-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                 Select Language / भाषा
               </div>
@@ -307,7 +307,7 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
                     }}
                     className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
                       language === langOpt.code
-                        ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold'
+                        ? 'bg-indigo-50/90 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 font-bold'
                         : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
@@ -338,15 +338,15 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
               setIsYearMenuOpen(false);
               setIsLangMenuOpen(false);
             }}
-            className="flex items-center gap-2 p-1.5 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+            className="flex items-center gap-2 p-1.5 rounded-2xl hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-colors border border-slate-200/60 dark:border-slate-800/60 shadow-xs"
           >
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200 dark:ring-slate-700"
+              className="w-8 h-8 rounded-full object-cover ring-2 ring-indigo-500/40"
             />
             <div className="hidden xl:block text-left text-xs">
-              <div className="font-semibold text-slate-900 dark:text-white leading-tight">
+              <div className="font-bold text-slate-900 dark:text-white leading-tight">
                 {currentUser.name}
               </div>
               <div className="text-[10px] text-slate-500 dark:text-slate-400">
@@ -357,19 +357,19 @@ export const Topbar: React.FC<{ onToggleSidebar?: () => void }> = () => {
           </button>
 
           {isUserMenuOpen && (
-            <div className="absolute right-0 mt-2 w-72 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-3 z-40 animate-in fade-in zoom-in-95">
+            <div className="absolute right-0 mt-2 w-72 glass-dropdown rounded-2xl p-3 z-40 animate-in fade-in zoom-in-95">
               {/* Current Active Account Header */}
-              <div className="flex items-center gap-3 p-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl mb-3">
+              <div className="flex items-center gap-3 p-2.5 bg-slate-50/80 dark:bg-slate-800/70 rounded-xl mb-3 border border-slate-200/50 dark:border-slate-700/50">
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
                   className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500"
                 />
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold text-slate-900 dark:text-white truncate">
+                  <div className="text-xs font-bold text-slate-900 dark:text-white truncate font-display">
                     {currentUser.name}
                   </div>
-                  <div className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium truncate">
+                  <div className="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold truncate">
                     {currentUser.roleTitle}
                   </div>
                   <div className="text-[10px] text-slate-400 truncate">{currentUser.email}</div>
