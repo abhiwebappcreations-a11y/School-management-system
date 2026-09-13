@@ -54,11 +54,7 @@ export const SchoolProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState<boolean>(false);
   const [isAiDrawerOpen, setIsAiDrawerOpen] = useState<boolean>(false);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem('smartschool_theme');
-    if (saved === 'light') return false;
-    return true; // Default to Dark Mode
-  });
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [language, setLanguage] = useState<SupportedLanguage>(() => {
     return (localStorage.getItem('smartschool_lang') as SupportedLanguage) || 'en';
   });

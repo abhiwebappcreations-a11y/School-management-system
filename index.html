@@ -5,16 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>SmartSchool OS | Unified School Operating System</title>
     <meta name="description" content="Next-Generation Centralized Operating System for Modern Educational Institutions with Zero-Trust Permission Architecture." />
-    <!-- Initialize Theme: Default to Dark Mode -->
+    <!-- Initialize Theme: Force Dark Mode -->
     <script>
       (function() {
-        const saved = localStorage.getItem('smartschool_theme');
-        if (saved === 'light') {
-          document.documentElement.classList.remove('dark');
-        } else {
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('smartschool_theme', 'dark');
-        }
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('smartschool_theme', 'dark');
       })();
     </script>
     <!-- Fonts -->
