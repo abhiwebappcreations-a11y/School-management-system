@@ -155,60 +155,72 @@ export const FeesModule: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <CreditCard className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-            Fees, Invoicing & Receipts (₹ INR)
-          </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Student fee structures, invoice generation, cashier reconciliation, and official receipts
-          </p>
-        </div>
+      <Card variant="glass" className="p-5 border-slate-200/80 dark:border-slate-800/80 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-32 bg-gradient-to-br from-emerald-500/10 via-indigo-500/5 to-transparent pointer-events-none rounded-full blur-2xl" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
+          <div className="flex items-center gap-3.5">
+            <div className="p-3 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-2xl text-white shadow-lg shadow-emerald-600/25">
+              <CreditCard className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+                  Fees, Invoicing & Receipts (₹ INR)
+                </h1>
+                <Badge variant="emerald" dot>
+                  Live Ledger
+                </Badge>
+              </div>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Student fee structures, invoice generation, cashier reconciliation, and official receipts
+              </p>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-2.5">
-          {canAccess('fees', 'create') && (
-            <Button
-              variant="primary"
-              size="sm"
-              icon={Plus}
-              onClick={() => setIsCollectModalOpen(true)}
-            >
-              Collect Fee Payment
-            </Button>
-          )}
+          <div className="flex items-center gap-2.5">
+            {canAccess('fees', 'create') && (
+              <Button
+                variant="primary"
+                size="sm"
+                icon={Plus}
+                onClick={() => setIsCollectModalOpen(true)}
+              >
+                Collect Fee Payment
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      </Card>
 
       {/* Summary Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4">
-          <span className="text-xs font-semibold text-slate-500 block uppercase">Total Collections</span>
-          <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400 mt-1 block">
+        <Card variant="glass" hover className="p-5 border-slate-200/80 dark:border-slate-800/80">
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block uppercase tracking-wider">Total Collections</span>
+          <span className="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1 block tracking-tight">
             ₹{totalCollected.toLocaleString('en-IN')}
           </span>
-          <span className="text-xs text-slate-400 mt-1 block">{db.feePayments.length} verified receipts</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 block font-medium">{db.feePayments.length} verified receipts</span>
         </Card>
 
-        <Card className="p-4">
-          <span className="text-xs font-semibold text-slate-500 block uppercase">Outstanding Arrears</span>
-          <span className="text-2xl font-black text-rose-600 dark:text-rose-400 mt-1 block">
+        <Card variant="glass" hover className="p-5 border-slate-200/80 dark:border-slate-800/80">
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block uppercase tracking-wider">Outstanding Arrears</span>
+          <span className="text-3xl font-black text-rose-600 dark:text-rose-400 mt-1 block tracking-tight">
             ₹{totalOutstanding.toLocaleString('en-IN')}
           </span>
-          <span className="text-xs text-slate-400 mt-1 block">Term 1 due invoices</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 block font-medium">Term 1 due invoices</span>
         </Card>
 
-        <Card className="p-4">
-          <span className="text-xs font-semibold text-slate-500 block uppercase">Active Term Structures</span>
-          <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1 block">
+        <Card variant="glass" hover className="p-5 border-slate-200/80 dark:border-slate-800/80">
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 block uppercase tracking-wider">Active Term Structures</span>
+          <span className="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-1 block tracking-tight">
             {db.feeStructures.length} Fee Heads
           </span>
-          <span className="text-xs text-slate-400 mt-1 block">Tuition, Transport, Exam, Activity</span>
+          <span className="text-xs text-slate-400 dark:text-slate-500 mt-1.5 block font-medium">Tuition, Transport, Exam, Activity</span>
         </Card>
       </div>
 
       {/* Tab Selectors & Search */}
-      <Card className="p-4">
+      <Card variant="glass" className="p-4 border-slate-200/80 dark:border-slate-800/80">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             {[
@@ -217,14 +229,15 @@ export const FeesModule: React.FC = () => {
               { id: 'structures', label: 'Fee Structures', icon: IndianRupee },
             ].map((tab) => {
               const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                    activeTab === tab.id
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-2xs ${
+                    isActive
+                      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25'
+                      : 'bg-slate-100/80 dark:bg-slate-800/60 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700/80'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -234,14 +247,14 @@ export const FeesModule: React.FC = () => {
             })}
           </div>
 
-          <div className="relative w-full sm:w-64">
+          <div className="relative w-full sm:w-72">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search by student or invoice #..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl text-xs bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-indigo-500 focus:outline-none dark:text-white"
+              className="w-full pl-9 pr-3 py-2 rounded-xl text-xs bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none dark:text-white transition-all font-medium"
             />
           </div>
         </div>
@@ -249,7 +262,7 @@ export const FeesModule: React.FC = () => {
 
       {/* Invoices Tab */}
       {activeTab === 'invoices' && (
-        <Card className="p-0 overflow-hidden">
+        <Card variant="glass" className="p-0 overflow-hidden border-slate-200/80 dark:border-slate-800/80 shadow-md">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
