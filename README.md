@@ -1,32 +1,55 @@
-# React + TypeScript + Vite
+# 🏫 SmartSchool OS — School Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> A modern and comprehensive School Management System designed to simplify and digitize school administration, academics, attendance, examinations, fees, transport, library, communication, analytics, and more.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🚀 *[View Live Demo](https://school-management-system-tawny-nine-96.vercel.app)*
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the Oxlint configuration
+- 👨‍🎓 Student Management
+- 👩‍🏫 Teacher Management
+- 👨‍👩‍👧 Parent Management
+- 📚 Academic Management
+- 📅 Attendance Management
+- 📝 Examination Management
+- 💰 Fees & Payment Management
+- 🚌 Transport Management
+- 📖 Library Management
+- 📊 Analytics & Reports
+- 📢 Communication & Notifications
+- 🔐 Role-Based Access Control
+- 🛡️ Permission-Based Security
+- 📱 Responsive User Interface
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+---
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## 🛠️ Tech Stack
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- ⚛️ React
+- 🔷 TypeScript
+- ⚡ Vite
+- 🎨 Modern CSS / UI Components
+- 🔐 Role-Based Authentication
+- 📊 Data Visualization
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have installed:
+
+- Node.js
+- npm
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/abhiwebappcreations-a11y/School-management-system.git
